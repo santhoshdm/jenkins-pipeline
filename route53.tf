@@ -1,5 +1,5 @@
 data "aws_route53_zone" "cloud" {
-  name         = "awsdemocloudlinuxacademy.com."
+  name         = "cloudlinuxacademy.com."
 }
 
 resource "aws_route53_record" "www" {
