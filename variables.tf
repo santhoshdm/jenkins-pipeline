@@ -1,5 +1,5 @@
 variable "region" {
-        default = "ap-south-1"
+        default = "us-east-1"
 }
 
 variable "profile" {
@@ -8,5 +8,5 @@ variable "profile" {
 }
 
 variable "alarms_email" {
-     default = "satyapanuganti@gmail.com"
+     default = "dmsanthsoh35@gmail.com"
 	 }

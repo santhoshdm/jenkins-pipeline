@@ -7,7 +7,7 @@ terraform {
   backend "s3" {
     bucket = "jenkins-devops-poc-backend"
     key    = "dev/backend"
-    region = "ap-south-1"
+    region = "us-east-1"
   }
 }
 
