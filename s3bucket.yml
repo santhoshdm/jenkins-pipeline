@@ -2,9 +2,9 @@
 - hosts: localhost
   gather_facts: no
   tasks:
-    - easy_install:
-        name: pip
-        state: latest
+#    - easy_install:
+#        name: pip
+#        state: latest
     - name: install Boto3 Python
       pip:
         name: boto3
