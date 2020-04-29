@@ -9,7 +9,7 @@
         state: "{{ state }}"
         lock: yes
         backend_config:
-          region: "ap-south-1"
+          region: "us-east-1"
           bucket: "jenkins-devops-poc-backend"
           key: "backend.tfstate"
           dynamodb_table: "my-backend-lock"

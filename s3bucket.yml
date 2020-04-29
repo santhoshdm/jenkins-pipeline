@@ -15,7 +15,7 @@
     - name: dynamodb lock
       dynamodb_table:
         name: my-backend-lock
-        region: ap-south-1
+        region: us-east-1
         hash_key_name: LockID
         hash_key_type: STRING
         read_capacity: 2
