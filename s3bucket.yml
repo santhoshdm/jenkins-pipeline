@@ -3,7 +3,7 @@
   gather_facts: no
   tasks:
     - name: install Boto3 Python
-      pip:
+      pip3:
         name: boto3
         state: present
       
