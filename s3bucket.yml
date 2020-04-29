@@ -5,7 +5,6 @@
     - easy_install:
         name: pip
         state: latest
-        become: yes
     - name: install Boto3 Python
       pip:
         name: boto3
