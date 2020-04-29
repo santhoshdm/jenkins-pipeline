@@ -5,12 +5,12 @@
 #    - easy_install:
 #        name: pip
 #        state: latest
-    - name: install Boto3 Python
-      pip:
-        name: boto3
-        state: present
-      become: yes
-      become_user: root
+#    - name: install Boto3 Python
+#      pip:
+#        name: boto3
+#        state: present
+#      become: yes
+#      become_user: root
       
     - name: create S3 Backend
       s3_bucket:
