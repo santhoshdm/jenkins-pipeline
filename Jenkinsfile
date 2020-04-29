@@ -1,8 +1,11 @@
 pipeline{
   agent any
   environment {
-    PATH = "${PATH}:${getTerraformPath()}"
+    //PATH = "${PATH}:${getTerraformPath()}"
   }
+  tools {
+          jdk 'terraform12'
+      }
   stages{
     stage('S3Bucket'){
 	  steps{
@@ -80,7 +83,7 @@ pipeline{
     }
 }  
 
-def getTerraformPath(){
-  def tfHome = tool name: 'terraform12', type: 'terraform'
-  return tfHome
-  }
+// def getTerraformPath(){
+//   def tfHome = tool name: 'terraform12', type: 'terraform'
+//   return tfHome
+//   }
