@@ -1,10 +1,10 @@
 pipeline{
   agent any
-  environment {
-    //PATH = "${PATH}:${getTerraformPath()}"
-  }
+//   environment {
+//     //PATH = "${PATH}:${getTerraformPath()}"
+//   }
   tools {
-          jdk 'terraform12'
+          terraform 'terraform12'
       }
   stages{
     stage('S3Bucket'){
