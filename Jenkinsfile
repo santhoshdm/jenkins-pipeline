@@ -84,6 +84,6 @@ pipeline{
 }  
 
 def getTerraformPath(){
-  def tfHome = tool name: 'terraform12', type: 'terraform'
+  def tfHome = tool name: 'terraform12', type: 'com.cloudbees.jenkins.plugins.customtools.CustomTool'
   return tfHome
   }
