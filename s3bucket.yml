@@ -14,7 +14,7 @@
       
     - name: create S3 Backend
       s3_bucket:
-        name: jenkins-devops-poc-backend
+        name: san-demo-jenkins-poc-backend
         state: present
         
     - name: dynamodb lock

@@ -5,7 +5,7 @@ provider "aws" {
 
 terraform {
   backend "s3" {
-    bucket = "jenkins-devops-poc-backend"
+    bucket = "san-demo-jenkins-poc-backend"
     key    = "dev/backend"
     region = "us-east-1"
   }
