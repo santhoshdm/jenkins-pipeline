@@ -1,0 +1,29 @@
+---
+- hosts: all
+  gather_facts: no
+  vars:
+    appsrc: "{{ lookup('env','WORKSPACE') }}/target/"
+  tasks:
+    - name: copy WAR file to APP servers.
+      copy: 
+        src: "{{ item }}"
+        dest: /opt/tomcat/webapps/app.war
+        follow: no
+      with_fileglob:
+        - "{{ appsrc }}/*war"
+ 
+    - name: stop tomcat application
+      systemd:
+        name: tomcat
+        state: stopped
+    
+    - name: start tomcat application
+      systemd:
+        name: tomcat
+        state: started
+        
+    - name: backup ROOT
+      command: mv /opt/tomcat/webapps/ROOT /opt/tomcat/webapps/ROOT-{{ lookup('env','BUILD_NUMBER') }}
+       
+    - name: copy app to ROOT
+      command: cp -Rpf /opt/tomcat/webapps/app /opt/tomcat/webapps/ROOT

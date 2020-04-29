@@ -1,0 +1,68 @@
+---
+- hosts: all
+  gather_facts: no
+  tasks:
+    - name: install java on servers
+      yum: 
+        name: ['java-1.8.0-openjdk.x86_64', 'wget', 'unzip']
+        state: present
+        
+    - name: create dir for tomcat installation
+      file:
+        path: /opt/tomcat
+        state: directory
+        mode: '0755'
+    
+    - name: create user for tomcat
+      user:
+        name: tomcat
+        shell: /bin/bash
+        home: /opt/tomcat
+    
+    - name: download tomcat binary
+      get_url:
+        url: http://apachemirror.wuchna.com/tomcat/tomcat-8/v8.5.53/bin/apache-tomcat-8.5.53.tar.gz
+        dest: /tmp/
+ 
+    - name: extract tomcat binary
+      command: tar xvf /tmp/apache-tomcat-8.5.53.tar.gz -C /opt/tomcat --strip-components=1
+
+    - name: Changing ownership to tomcat user
+      command: chown -R tomcat:tomcat /opt/tomcat 
+       
+    - name: create systemd tomcat file
+      copy:
+        dest: "/etc/systemd/system/tomcat.service"
+        mode: '0755'
+        content: |
+          # Systemd unit file for tomcat
+          [Unit]
+          Description=Apache Tomcat Web Application Container
+          After=syslog.target network.target
+          [Service]
+          Type=forking
+          Environment=JAVA_HOME=/usr/lib/jvm/jre
+          Environment=CATALINA_PID=/opt/tomcat/temp/tomcat.pid
+          Environment=CATALINA_HOME=/opt/tomcat
+          Environment=CATALINA_BASE=/opt/tomcat
+          Environment='CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC'
+          Environment='JAVA_OPTS=-Djava.awt.headless=true -
+          Djava.security.egd=file:/dev/./urandom'
+          ExecStart=/opt/tomcat/bin/startup.sh
+          ExecStop=/bin/kill -15 $MAINPID
+          User=tomcat
+          Group=tomcat
+          UMask=0007
+          RestartSec=10
+          Restart=always
+          [Install]
+          WantedBy=multi-user.target
+          
+    - name: reload systemctl daemon
+      command: systemctl daemon-reload
+      
+    - name: start tomcat application
+      systemd:
+        name: tomcat
+        state: started
+        enabled: yes

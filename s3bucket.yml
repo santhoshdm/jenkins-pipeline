@@ -1,0 +1,24 @@
+---
+- hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: install Boto3 Python
+      pip:
+        name: boto3
+        state: present
+      
+    - name: create S3 Backend
+      s3_bucket:
+        name: jenkins-devops-poc-backend
+        state: present
+        
+    - name: dynamodb lock
+      dynamodb_table:
+        name: my-backend-lock
+        region: ap-south-1
+        hash_key_name: LockID
+        hash_key_type: STRING
+        read_capacity: 2
+        write_capacity: 2
+        tags:
+          tag_name: dynamolock    
